@@ -21,8 +21,8 @@ function DetailsScreen( {route, navigation}) {
 		  <Text>Details Screen</Text>
       <Text>itemId: {JSON.stringify(itemId)}</Text>
       <Text>otherParam: {JSON.stringify(otherParam)}</Text>
-      <Button title="Go to Details... again" onPress={() => navigation.push('Details', onPress={() => navigation.push('Details', 
-              { itemId: Math.floor(math.random()*100),})}/>
+      <Button title="Go to Details... again" onPress={() => navigation.push('Details', 
+              { itemId: Math.floor(Math.random()*100),})}/>
       <Button title="Go to Home" onPress={() => navigation.navigate('Home') } />
       <Button title="Go back" onPress={() => navigation.goBack()}/>
       <Button title="Go back to first screen in stack" onPress={() => navigation.popToTop()}/>
@@ -35,10 +35,15 @@ const Stack = createStackNavigator();
 function App() {
 	return (
 		<NavigationContainer>
-			<Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Overview'}}/>
-				<Stack.Screen name="Details" component={DetailsScreen}/>
-			</Stack.Navigator>
+      <Stack.Navigator initialRouteName="Home"
+        screenOptions={{ 
+          title: 'Overview', 
+          headerStyle: { backgroundColor: '#f4511e',}, 
+          headerTintColor: '#fff', 
+          headerTitleStyle: { fontWeight: 'bold', }, }}>
+	      <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Overview'}} />
+	      <Stack.Screen name="Details" component={DetailsScreen} initialParams={{ itemId: 42}} />
+      </Stack.Navigator>
 		</NavigationContainer>
 	);
 }
